@@ -54,4 +54,11 @@ export class User {
   public get password(): Password {
     return this.props.password;
   }
+
+  public get createdAt(): Date {
+    return this.props.createdAt;
+  }
+  public get updatedAt(): Date {
+    return this.props.updatedAt;
+  }
 }

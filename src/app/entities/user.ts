@@ -58,6 +58,7 @@ export class User {
   public get createdAt(): Date {
     return this.props.createdAt;
   }
+
   public get updatedAt(): Date {
     return this.props.updatedAt;
   }

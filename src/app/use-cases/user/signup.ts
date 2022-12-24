@@ -30,6 +30,10 @@ export class SignUp {
       password: new Password(password),
     });
 
+    if (await this.userRepository.findOneByEmail(user.email.value)) {
+      throw new Error('Email already taken');
+    }
+
     user.password = new Password(
       await this.cryptRepository.createHash(user.password.value),
     );

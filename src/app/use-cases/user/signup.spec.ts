@@ -1,7 +1,7 @@
 import { User } from '@app/entities/user';
 import { CrypterRepository } from '@app/repositories/crypter-repository';
-import { InMemoryUserRepository } from '@app/repositories/in-memory-user-repository';
-import { makeUser } from '@factories/user-factory';
+import { InMemoryUserRepository } from '@test-repositories/in-memory-user-repository';
+import { makeUser } from '@test-factories/user-factory';
 import { SignUp } from './signup';
 
 class CryptSut implements Partial<CrypterRepository> {

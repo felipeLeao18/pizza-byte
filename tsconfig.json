@@ -23,9 +23,11 @@
     "paths": {
       "@app/*": ["./src/app/*"],
       "@entities/*": ["./src/app/entities/*"],
+      "@repositories/*": ["./src/app/repositories/*"],
       "@helpers/*": ["./src/helpers/*"],
       "@infra/*": ["./src/infra/*"],
-      "@factories/*": ["./src/test/factories/*"]
+      "@test-factories/*": ["./src/test/factories/*"],
+      "@test-repositories/*": ["./src/test/repositories/*"]
     }
   }
 }

@@ -4,4 +4,4 @@ import { BcryptRepository } from './bcrypt/bcrypt-repository';
 @Module({
   exports: [BcryptRepository],
 })
-export class DatabaseModule {}
+export class CryptographyModule {}

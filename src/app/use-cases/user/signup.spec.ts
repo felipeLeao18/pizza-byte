@@ -1,5 +1,7 @@
+import { User } from '@app/entities/user';
 import { CrypterRepository } from '@app/repositories/crypter-repository';
 import { InMemoryUserRepository } from '@app/repositories/in-memory-user-repository';
+import { makeUser } from '@factories/user-factory';
 import { SignUp } from './signup';
 
 class CryptSut implements Partial<CrypterRepository> {
@@ -9,6 +11,26 @@ class CryptSut implements Partial<CrypterRepository> {
 }
 
 describe('Sign up', () => {
+  it('should throw when email is already taken', async () => {
+    const usersRepository = new InMemoryUserRepository();
+    const cryptRepository = new CryptSut();
+    const signUp = new SignUp(
+      usersRepository,
+      cryptRepository as CrypterRepository,
+    );
+
+    const userSut = new User(makeUser());
+    await usersRepository.signup(userSut);
+
+    expect(() =>
+      signUp.execute({
+        name: 'mock_user',
+        email: usersRepository.users[0].email.value,
+        password: 'mock_password',
+      }),
+    ).rejects;
+  });
+
   it('should be able to sign up', async () => {
     const usersRepository = new InMemoryUserRepository();
     const cryptRepository = new CryptSut();

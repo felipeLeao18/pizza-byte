@@ -25,7 +25,7 @@
       "@entities/*": ["./src/app/entities/*"],
       "@helpers/*": ["./src/helpers/*"],
       "@infra/*": ["./src/infra/*"],
-      "@factories/*": ["./src/factories/*"]
+      "@factories/*": ["./src/test/factories/*"]
     }
   }
 }

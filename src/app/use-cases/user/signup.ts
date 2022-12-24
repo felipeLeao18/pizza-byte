@@ -21,7 +21,6 @@ export class SignUp {
     private userRepository: UserRepository,
     private cryptRepository: CrypterRepository,
   ) {}
-
   async execute(request: ISignUpRequest): Promise<ISignUpResponse> {
     const { name, email, password } = request;
     const user = new User({

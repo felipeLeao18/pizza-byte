@@ -8,8 +8,8 @@ export class PrismaUserMapper {
     return {
       id: user.id,
       name: user.name,
-      email: user.email,
-      password: user.password,
+      email: user.email.value,
+      password: user.password.value,
       createdAt: user.createdAt,
     };
   }

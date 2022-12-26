@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UserRepository } from '@app/repositories/user-repository';
 import { CrypterRepository } from '@app/repositories/crypter-repository';
 import { AuthenticatorRepository } from '@app/repositories/authenticator-repository';
@@ -29,14 +29,15 @@ export class Login {
     const { email, password } = request;
 
     const user = await this.userRepository.findOneByEmail(email);
-    console.log(user?.email);
-    console.log(user?.email.value);
     const invalidUser =
       !user ||
       !(await this.cryptRepository.compare(password, user.password.value));
 
     if (invalidUser) {
-      throw new Error('Invalid email or password');
+      throw new HttpException(
+        'Invalid email or password',
+        HttpStatus.PRECONDITION_FAILED,
+      );
     }
 
     const token = await this.authRepository.encrypt(user.id);

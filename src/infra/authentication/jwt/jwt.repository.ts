@@ -12,6 +12,6 @@ export class JwtRepository implements AuthenticatorRepository {
   }
 
   async decrypt(ciphertext: string): Promise<string> {
-    return jwt.verify(ciphertext, this.secret) as any;
+    return jwt.verify(ciphertext, this.secret);
   }
 }

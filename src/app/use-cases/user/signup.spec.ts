@@ -19,7 +19,7 @@ describe('Sign up', () => {
       cryptRepository as CrypterRepository,
     );
 
-    const userSut = new User(makeUser());
+    const userSut = makeUser();
     await usersRepository.create(userSut);
 
     expect(() =>

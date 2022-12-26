@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from '@app/entities/user';
 import { Email } from '@app/entities/email';
 import { Password } from '@app/entities/password';
@@ -29,8 +29,12 @@ export class SignUp {
       password: new Password(password),
     });
 
-    if (await this.userRepository.findOneByEmail(user.email.value)) {
-      throw new Error('Email already taken');
+    const emailAlreadyTaken = await this.userRepository.findOneByEmail(
+      user.email.value,
+    );
+
+    if (emailAlreadyTaken) {
+      throw new HttpException('Email already taken', HttpStatus.CONFLICT);
     }
 
     user.password = new Password(

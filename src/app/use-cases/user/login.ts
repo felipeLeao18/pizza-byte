@@ -29,6 +29,8 @@ export class Login {
     const { email, password } = request;
 
     const user = await this.userRepository.findOneByEmail(email);
+    console.log(user?.email);
+    console.log(user?.email.value);
     const invalidUser =
       !user ||
       !(await this.cryptRepository.compare(password, user.password.value));

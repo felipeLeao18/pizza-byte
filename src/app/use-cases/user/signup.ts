@@ -37,7 +37,7 @@ export class SignUp {
       await this.cryptRepository.createHash(user.password.value),
     );
 
-    await this.userRepository.signup(user);
+    await this.userRepository.create(user);
 
     return { user };
   }

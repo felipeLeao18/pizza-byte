@@ -20,7 +20,7 @@ describe('Sign up', () => {
     );
 
     const userSut = new User(makeUser());
-    await usersRepository.signup(userSut);
+    await usersRepository.create(userSut);
 
     expect(() =>
       signUp.execute({

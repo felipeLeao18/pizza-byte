@@ -38,7 +38,6 @@ export class Login {
     }
 
     const token = await this.authRepository.encrypt(user.id);
-    console.log({ token });
 
     return {
       user: { name: user.name, email: user.email, id: user.id },

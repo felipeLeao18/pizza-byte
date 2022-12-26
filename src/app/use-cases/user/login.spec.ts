@@ -56,7 +56,7 @@ describe('Login', () => {
         async (plaintext: string, digest: string) => false,
       );
 
-    const userSut = new User(makeUser());
+    const userSut = makeUser();
 
     const userData = await usersRepository.create(userSut);
 
@@ -81,7 +81,7 @@ describe('Login', () => {
     const cryptRepository = new CryptSut();
     const authRepository = new AuthSut();
 
-    const userSut = new User(makeUser());
+    const userSut = makeUser();
 
     const userData = await usersRepository.create(userSut);
 

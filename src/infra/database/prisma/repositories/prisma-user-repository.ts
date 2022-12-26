@@ -7,22 +7,30 @@ import { User } from '@app/entities/user';
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
   constructor(private prisma: PrismaService) {}
-  async findOneByEmail(email: string): Promise<Partial<User> | null> {
-    const user = await this.prisma.user.findFirst({
-      where: { email },
-      select: {
-        id: true,
-      },
+  async findById(id: string): Promise<User | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
     });
 
     if (!user) {
       return null;
     }
 
-    return user;
+    return PrismaUserMapper.toDomain(user);
+  }
+  async findOneByEmail(email: string): Promise<User | null> {
+    const user = await this.prisma.user.findFirst({
+      where: { email },
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    return PrismaUserMapper.toDomain(user);
   }
 
-  async signup(user: User): Promise<User> {
+  async create(user: User): Promise<User> {
     const raw = PrismaUserMapper.toPrisma(user);
 
     const userDb = await this.prisma.user.create({

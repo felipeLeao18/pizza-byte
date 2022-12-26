@@ -8,6 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "strictPropertyInitialization": false,
     "target": "es2017",
+    "esModuleInterop": true,
     "resolveJsonModule": true,
     "sourceMap": true,
     "outDir": "./dist",

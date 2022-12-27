@@ -1,37 +1,28 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NestMiddleware } from '@nestjs/common';
 import { UserRepository } from '@app/repositories/user-repository';
 import { AuthenticatorRepository } from '@app/repositories/authenticator-repository';
-
-interface IGetUserByTokenRequest {
-  token: string;
-}
-
-interface IGetUserByTokenResponse {
-  userId: string;
-}
+import { Middleware } from '@app/repositories/middleware-repository';
 
 @Injectable()
-export class GetUserByToken {
+export class GetUserByToken implements Middleware {
   constructor(
     private userRepository: UserRepository,
     private authenticatorRepository: AuthenticatorRepository,
   ) {}
-  async execute(
-    request: IGetUserByTokenRequest,
-  ): Promise<IGetUserByTokenResponse> {
-    const { token } = request;
+
+  async use(request: any, res: any, next: () => void) {
+    const token = request.headers['x-api-key'];
 
     if (token) {
-      const userId = await this.authenticatorRepository.decrypt(token);
+      const id = await this.authenticatorRepository.decrypt(token);
 
-      const user = await this.userRepository.findById(userId);
+      const user = await this.userRepository.findById(id);
 
       if (!user) {
         throw new ForbiddenException();
       }
-      return {
-        userId: user.id,
-      };
+      request.user = user.id;
+      return next();
     }
 
     throw new ForbiddenException();

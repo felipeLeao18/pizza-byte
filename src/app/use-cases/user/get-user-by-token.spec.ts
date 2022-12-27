@@ -2,8 +2,9 @@ import { User } from '@app/entities/user';
 import { InMemoryUserRepository } from '@test-repositories/in-memory-user-repository';
 import { makeUser } from '@test-factories/user-factory';
 import { AuthenticatorRepository } from '@app/repositories/authenticator-repository';
-import { GetUserByToken } from './get-user-by-token';
+
 import { randomUUID } from 'crypto';
+import { GetUserByToken } from './get-user-by-token';
 
 class AuthSut implements Partial<AuthenticatorRepository> {
   async decrypt(ciphertext: string): Promise<string> {
@@ -30,9 +31,7 @@ describe('Get user by token', () => {
     await usersRepository.create(userSut);
 
     expect(() =>
-      getUserByToken.execute({
-        token: '',
-      }),
+      getUserByToken.use({ headers: '' }, {}, () => null),
     ).rejects.toThrow('Forbidden');
   });
 
@@ -53,9 +52,7 @@ describe('Get user by token', () => {
     await usersRepository.create(userSut);
 
     expect(() =>
-      getUserByToken.execute({
-        token: randomUUID(),
-      }),
+      getUserByToken.use({ headers: 'any' }, {}, () => null),
     ).rejects.toThrow('Forbidden');
   });
 
@@ -71,9 +68,12 @@ describe('Get user by token', () => {
     const userSut = makeUser();
     await usersRepository.create(userSut);
 
-    const { userId } = await getUserByToken.execute({ token: userSut.id });
-
-    expect(userId).toBeDefined();
-    expect(userId).toEqual(userSut.id);
+    expect(() =>
+      getUserByToken.use(
+        { headers: { 'x-api-key': userSut.id } },
+        {},
+        () => null,
+      ),
+    ).not.toThrow();
   });
 });

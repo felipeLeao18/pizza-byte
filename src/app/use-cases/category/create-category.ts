@@ -4,7 +4,6 @@ import { Category } from '@app/entities/category';
 
 interface ICreateCategoryRequest {
   name: string;
-  user?: string;
 }
 
 interface ICreateCategoryResponse {
@@ -17,10 +16,8 @@ export class CreateCategory {
   async execute(
     request: ICreateCategoryRequest,
   ): Promise<ICreateCategoryResponse> {
-    console.log(request);
-    const { name, user } = request;
+    const { name } = request;
 
-    console.log(user);
     const category = new Category({ name });
 
     await this.categoryRepository.create(category);

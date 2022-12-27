@@ -18,4 +18,3 @@ describe('User', () => {
     expect(user.updatedAt).toEqual(expect.any(Date));
   });
 });
-

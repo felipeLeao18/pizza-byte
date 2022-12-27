@@ -1,16 +1,20 @@
 import { AuthenticatorRepository } from '@app/repositories/authenticator-repository';
 import { CrypterRepository } from '@app/repositories/crypter-repository';
+import { CreateCategory } from '@app/use-cases/category/create-category';
+import { GetUserByToken } from '@app/use-cases/user/get-user-by-token';
 import { Login } from '@app/use-cases/user/login';
 import { SignUp } from '@app/use-cases/user/signup';
 import { JwtRepository } from '@infra/authentication/jwt/jwt.repository';
 import { BcryptRepository } from '@infra/cryptography/bcrypt/bcrypt-repository';
-import { Module } from '@nestjs/common';
+import { MiddlewareModule } from '@infra/middlewares/middleware.module';
+import { Get, Module } from '@nestjs/common';
 import { DatabaseModule } from '../database/database.module';
+import { CategoryController } from './controllers/category-controller';
 import { UserController } from './controllers/user-controller';
 
 @Module({
-  imports: [DatabaseModule],
-  controllers: [UserController],
+  imports: [DatabaseModule, MiddlewareModule],
+  controllers: [UserController, CategoryController],
   providers: [
     SignUp,
     {
@@ -26,6 +30,9 @@ import { UserController } from './controllers/user-controller';
       provide: AuthenticatorRepository,
       useClass: JwtRepository,
     },
+    CreateCategory,
+    CategoryController,
   ],
+  exports: [AuthenticatorRepository],
 })
 export class HttpModule {}

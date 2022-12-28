@@ -7,4 +7,14 @@ export class InMemoryCategoryRepository extends CategoryRepository {
     const categoriesCount = this.categories.push(category);
     return this.categories[categoriesCount - 1];
   }
+
+  async findById(id: string): Promise<Category | null> {
+    const category = this.categories.find(
+      (category: Category) => category.id === id,
+    );
+    if (!category) {
+      return null;
+    }
+    return category;
+  }
 }

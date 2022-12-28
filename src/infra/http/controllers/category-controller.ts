@@ -1,4 +1,5 @@
 import { CreateCategory } from '@app/use-cases/category/create-category';
+import { GetCategories } from '@app/use-cases/category/get-categories';
 import { GetCategoryById } from '@app/use-cases/category/get-category';
 import { MyMiddlewareProvider } from '@infra/middlewares/middleware.service';
 import {
@@ -7,7 +8,6 @@ import {
   Get,
   Param,
   Post,
-  Req,
   UseInterceptors,
 } from '@nestjs/common';
 import { CreateCategoryBody } from '../dtos/user/create-category-body';
@@ -19,6 +19,7 @@ export class CategoryController {
   constructor(
     private _create: CreateCategory,
     private _getById: GetCategoryById,
+    private _getMany: GetCategories,
   ) {}
 
   @Post()
@@ -39,5 +40,16 @@ export class CategoryController {
     });
 
     return { category: CategoryViewModel.toHTTP(category) };
+  }
+
+  @Get()
+  async getMany() {
+    const { categories } = await this._getMany.execute();
+
+    return {
+      categories: categories.map((category) =>
+        CategoryViewModel.toHTTP(category),
+      ),
+    };
   }
 }

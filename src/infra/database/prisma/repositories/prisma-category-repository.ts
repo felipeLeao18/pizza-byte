@@ -7,10 +7,19 @@ import { PrismaCategoryMapper } from '../mappers/prisma-category-mapper';
 @Injectable()
 export class PrismaCategoryRepository implements CategoryRepository {
   constructor(private prisma: PrismaService) {}
+
+  async findMany(): Promise<Category[]> {
+    const categories = await this.prisma.category.findMany();
+    return categories.map((category) =>
+      PrismaCategoryMapper.toDomain(category),
+    );
+  }
+
   async findById(id: string): Promise<Category | null> {
     const category = await this.prisma.category.findUnique({
       where: { id },
     });
+
     if (!category) {
       return null;
     }

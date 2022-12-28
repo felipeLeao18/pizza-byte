@@ -17,4 +17,8 @@ export class InMemoryCategoryRepository extends CategoryRepository {
     }
     return category;
   }
+
+  async findMany(): Promise<Category[]> {
+    return this.categories;
+  }
 }

@@ -2,7 +2,7 @@
 import { AuthenticatorRepository } from '@app/repositories/authenticator-repository';
 import { Injectable } from '@nestjs/common';
 import jwt from 'jsonwebtoken';
-import { config } from 'src/config';
+import { config } from 'src/env';
 
 @Injectable()
 export class JwtRepository implements AuthenticatorRepository {

@@ -1,13 +1,13 @@
 import { AuthenticatorRepository } from '@app/repositories/authenticator-repository';
 import { CrypterRepository } from '@app/repositories/crypter-repository';
 import { CreateCategory } from '@app/use-cases/category/create-category';
-import { GetUserByToken } from '@app/use-cases/user/get-user-by-token';
+import { GetCategoryById } from '@app/use-cases/category/get-category';
 import { Login } from '@app/use-cases/user/login';
 import { SignUp } from '@app/use-cases/user/signup';
 import { JwtRepository } from '@infra/authentication/jwt/jwt.repository';
 import { BcryptRepository } from '@infra/cryptography/bcrypt/bcrypt-repository';
 import { MiddlewareModule } from '@infra/middlewares/middleware.module';
-import { Get, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { DatabaseModule } from '../database/database.module';
 import { CategoryController } from './controllers/category-controller';
 import { UserController } from './controllers/user-controller';
@@ -32,6 +32,7 @@ import { UserController } from './controllers/user-controller';
     },
     CreateCategory,
     CategoryController,
+    GetCategoryById,
   ],
   exports: [AuthenticatorRepository],
 })

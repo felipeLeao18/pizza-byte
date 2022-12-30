@@ -1,7 +1,7 @@
 import { makeCategory } from '@test-factories/category-factory';
 import { InMemoryCategoryRepository } from '@test-repositories/in-memory-category-repository';
 import { randomUUID } from 'crypto';
-import { CategoryNotFoundError } from './errors/category-errors';
+import { CategoryNotFoundError } from '../errors/category-errors';
 import { GetCategoryById } from './get-category';
 
 describe('Get category by id', () => {

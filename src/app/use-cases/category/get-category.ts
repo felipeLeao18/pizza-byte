@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CategoryRepository } from '@app/repositories/category-repository';
 import { Category } from '@app/entities/category';
-import { CategoryNotFoundError } from './errors/category-errors';
+import { CategoryNotFoundError } from '../errors/category-errors';
 
 interface IGetCategoryRequest {
   id: string;

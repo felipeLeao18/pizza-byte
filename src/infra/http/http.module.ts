@@ -1,6 +1,7 @@
 import { AuthenticatorRepository } from '@app/repositories/authenticator-repository';
 import { CrypterRepository } from '@app/repositories/crypter-repository';
 import { CreateCategory } from '@app/use-cases/category/create-category';
+import { GetCategories } from '@app/use-cases/category/get-categories';
 import { GetCategoryById } from '@app/use-cases/category/get-category';
 import { Login } from '@app/use-cases/user/login';
 import { SignUp } from '@app/use-cases/user/signup';
@@ -33,6 +34,7 @@ import { UserController } from './controllers/user-controller';
     CreateCategory,
     CategoryController,
     GetCategoryById,
+    GetCategories,
   ],
   exports: [AuthenticatorRepository],
 })

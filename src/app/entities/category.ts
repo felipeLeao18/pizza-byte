@@ -43,4 +43,3 @@ export class Category {
     return this.props.updatedAt;
   }
 }
-

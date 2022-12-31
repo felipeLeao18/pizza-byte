@@ -3,6 +3,7 @@ import { CategoryRepository } from '@app/repositories/category-repository';
 import { Product } from '@app/entities/product';
 import { BucketRepository } from '@app/repositories/bucket-repository';
 import { ProductRepository } from '@app/repositories/product-repository';
+import { CategoryNotFoundError } from '../errors/category-errors';
 
 interface ICreateProductRequest {
   name: string;
@@ -35,7 +36,10 @@ export class CreateProduct {
     const { name, description, price, banner, category_id } = request;
 
     if (category_id) {
-      await this.categoryRepository.findById(category_id);
+      const category = await this.categoryRepository.findById(category_id);
+      if (!category) {
+        throw new CategoryNotFoundError();
+      }
     }
 
     if (banner) {

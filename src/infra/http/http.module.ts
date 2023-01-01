@@ -6,6 +6,7 @@ import { CreateCategory } from '@app/use-cases/category/create-category';
 import { GetCategories } from '@app/use-cases/category/get-categories';
 import { GetCategoryById } from '@app/use-cases/category/get-category';
 import { CreateProduct } from '@app/use-cases/product/create-product';
+import { GetManyProducts } from '@app/use-cases/product/get-many-products';
 import { Login } from '@app/use-cases/user/login';
 import { SignUp } from '@app/use-cases/user/signup';
 import { JwtRepository } from '@infra/authentication/jwt/jwt.repository';
@@ -50,6 +51,7 @@ import { UserController } from './controllers/user-controller';
       provide: BucketRepository,
       useClass: S3Repository,
     },
+    GetManyProducts,
   ],
   exports: [AuthenticatorRepository],
 })

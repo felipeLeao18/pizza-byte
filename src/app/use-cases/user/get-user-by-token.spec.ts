@@ -2,8 +2,6 @@ import { User } from '@app/entities/user';
 import { InMemoryUserRepository } from '@test-repositories/in-memory-user-repository';
 import { makeUser } from '@test-factories/user-factory';
 import { AuthenticatorRepository } from '@app/repositories/authenticator-repository';
-
-import { randomUUID } from 'crypto';
 import { GetUserByToken } from './get-user-by-token';
 
 class AuthSut implements Partial<AuthenticatorRepository> {

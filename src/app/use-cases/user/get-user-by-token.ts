@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, NestMiddleware } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { UserRepository } from '@app/repositories/user-repository';
 import { AuthenticatorRepository } from '@app/repositories/authenticator-repository';
 import { Middleware } from '@app/repositories/middleware-repository';

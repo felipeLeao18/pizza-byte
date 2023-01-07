@@ -1,3 +1,8 @@
+export type Blob = {
+  originalname: string;
+  mimetype: string;
+  buffer: any;
+};
 export abstract class BucketRepository {
-  abstract upload(blob: any): Promise<{ link: string }>;
+  abstract upload(blob: Blob): Promise<{ link: string }>;
 }

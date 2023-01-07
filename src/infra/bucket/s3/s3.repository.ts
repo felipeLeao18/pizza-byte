@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { BucketRepository } from '@app/repositories/bucket-repository';
+import { Blob, BucketRepository } from '@app/repositories/bucket-repository';
 import { Injectable } from '@nestjs/common';
 import { config } from 'src/env';
 
@@ -29,7 +29,7 @@ export class S3Repository implements BucketRepository {
     return this.s3;
   }
 
-  async upload(blob: any): Promise<{ link: string }> {
+  async upload(blob: Blob): Promise<{ link: string }> {
     this.setInstance();
     const params = {
       ACL: 'public-read',
